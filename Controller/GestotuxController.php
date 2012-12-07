@@ -13,7 +13,7 @@ class GestotuxController extends GestotuxAppController {
 		$this->necesitaConexion();
 		$this->loadModel( 'Ctacte' );
 		$this->Ctacte->setDatasoruce( 'gestotux' );
-		$this->Ctacte->useTable = 'ctacte';		
+		$this->Ctacte->__construct();
 		// busco el saldo de la cuenta corriente
 		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( Configure::read( "Gestotux.cliente" ) ) );
 	}

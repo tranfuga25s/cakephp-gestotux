@@ -6,6 +6,8 @@ App::uses('AppModel', 'Model');
 * @property Item $Item
 */
 class Ctacte extends GestotuxAppModel {
+	
+	public $useDbConfig = 'gestotux';
 
 	/**
 	* Use table

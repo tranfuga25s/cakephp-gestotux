@@ -4,7 +4,7 @@ App::uses('AppModel', 'Model');
 * ItemCtacte Model
 *
 */
-class ItemCtacte extends AppModel {
+class ItemCtacte extends GestotuxAppModel {
 
 	/**
 	* Use table
