@@ -66,7 +66,7 @@ class GestotuxController extends GestotuxAppController {
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
 		$idctacte = $tmp['Ctacte']['numero_cuenta'];
-		unset( $tmp ); unset( $id_cliente );
+		unset( $tmp ); 
 		// Busco la cuenta corriente para el cliente
 		$this->set( 'lista', $this->ItemCtacte->find( 'all', array( 'conditions' => array( 'id_ctacte' => $idctacte ) ) ) );
 		$this->set( 'saldo_actual', $this->Ctacte->obtenerSaldo( $id_cliente ) );
