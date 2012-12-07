@@ -30,6 +30,7 @@ class GestotuxController extends GestotuxAppController {
 					$cliente = $this->Cliente->read( null, intval( Configure::read( "Gestotux.cliente" ) ) );
 					$data = $this->data['infomepago'];
 					$email = new CakeEmail();
+					$email->template( 'Gestotux.informepago', 'Gestotux.default' );
 					$email->addTo( 'esteban.zeller@gmail.com' );
 					$email->subject( "Informe de pago de ".$cliente['Cliente']['razon_social'] );
 					$email->from( $cliente['Cliente']['email'] );
@@ -77,7 +78,22 @@ class GestotuxController extends GestotuxAppController {
     * Function de envió de consulta administrativa
     */	
 	public function administracion_consulta() {
-		
+		if( $this->request->isPost() ) {
+			$this->Cliente->recursive = -1;
+			$cliente = $this->Cliente->read( null, intval( Configure::read( "Gestotux.cliente" ) ) );
+			$data = $this->data['consulta'];
+			$email = new CakeEmail();
+			$email->template( 'Gestotux.consulta', 'Gestotux.default' );
+			$email->addTo( 'esteban.zeller@gmail.com' );
+			$email->subject( "Consulta Administrativa de ".$cliente['Cliente']['razon_social'] );
+			$email->from( $cliente['Cliente']['email'] );
+			$email->addAttachments( $this->data['informepago']['adjunto']['tmp_name'] );
+			$email->viewVars( array( 'cliente' => $cliente['Cliente'], 'texto' => $data['texto'] ) );
+		}
+		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
+		$this->set( 'id_cliente', $id_cliente );
+		$cliente = $this->Cliente->read( null, $id_cliente );
+		$this->set( 'razon_social', $cliente['Cliente']['razon_social'] );
 	}
 	
    /*!

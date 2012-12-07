@@ -6,7 +6,7 @@
 <h1>Consulta administrativa</h1>
 <p>Utilice el siguiente formulario para enviarnos su consulta:</p>
 <div class="consulta form">
-	<?php echo $this->Form->create( 'contacto' ); ?>
+	<?php echo $this->Form->create( 'consulta' ); ?>
 	<fieldset>
 		<legend>Enviar consulta administrativa</legend>		
 		<?php
