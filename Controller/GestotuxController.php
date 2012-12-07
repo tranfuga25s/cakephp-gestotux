@@ -48,6 +48,7 @@ class GestotuxController extends GestotuxAppController {
 			}
 		}
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
+		$this->set( 'id_cliente', $id_cliente );
 		$cliente = $this->Cliente->read( null, $id_cliente );
 		$this->set( 'razon_social', $cliente['Cliente']['razon_social'] );
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
