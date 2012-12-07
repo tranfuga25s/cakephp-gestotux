@@ -10,7 +10,6 @@ class GestotuxController extends GestotuxAppController {
     * Accion de "Mi Cuenta"
     */
 	public function administracion_index() {
-		$this->necesitaConexion();
 		// busco el saldo de la cuenta corriente
 		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( intval( Configure::read( "Gestotux.cliente" ) ) ) );
 	}
@@ -48,11 +47,9 @@ class GestotuxController extends GestotuxAppController {
 				///@todo Agregar Errores de validación error importe no numerico
 			}
 		}
-		//$this->necesitaConexion();
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
 		$cliente = $this->Cliente->read( null, $id_cliente );
 		$this->set( 'razon_social', $cliente['Cliente']['razon_social'] );
-		//$this->loadModel( 'Ctacte' );
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
@@ -63,16 +60,13 @@ class GestotuxController extends GestotuxAppController {
     * Listado de cuenta corriente correspondiente al cliente
     */	
 	public function administracion_verctacte() {
-		//$this->necesitaConexion();
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
-		//$this->loadModel( 'Ctacte' );
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
 		$idctacte = $tmp['Ctacte']['numero_cuenta'];
 		unset( $tmp ); unset( $id_cliente );
 		// Busco la cuenta corriente para el cliente
-		//$this->loadModel( 'ItemCtacte' );
 		$this->set( 'lista', $this->ItemCtacte->find( 'all', array( 'conditions' => array( 'id_ctacte' => $idctacte ) ) ) );
 	}
 
