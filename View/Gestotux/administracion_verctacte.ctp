@@ -10,7 +10,7 @@ $saldo = 0.0;
 <table cellpadding="0" cellspacing="0" border="1">
 	<tbody>
 		<th style="text-align: center;">Fecha</th>
-		<th style="border: 1px solid black;">Descripcion</th>
+		<th>Descripcion</th>
 		<th style="text-align: center;">Debe</th>
 		<th style="text-align: center;">Haber</th>
 		<th style="text-align: center;">Saldo</th>
@@ -26,8 +26,8 @@ $saldo = 0.0;
 		</tr>
 		<?php endforeach; ?>
 		<tr>
-			<td colspan="4" style="background-color: black; color: white; font-weight: bold; text-align: right;">Saldo Final</td>
-			<td style="border: 2px solid black; text-align: center; font-size: 110%; font-weight: bold;"><?php echo $this->Number->currency( $saldo_actual, 'USD', array( 'negative' => '- ' )  ); ?></td>
+			<td colspan="4" style="font-weight: bold; text-align: right;">Saldo Final</td>
+			<td style="text-align: center; font-size: 110%; font-weight: bold;"><?php echo $this->Number->currency( $saldo_actual, 'USD', array( 'negative' => '- ' )  ); ?></td>
 		</tr>
 	</tbody>
 </table>
