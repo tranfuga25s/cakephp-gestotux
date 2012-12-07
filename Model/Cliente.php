@@ -18,8 +18,8 @@ class Cliente extends GestotuxAppModel {
 	 *
 	 * @var array
 	 */
-	public $hasMany = array( 'ServiciosCliente' => array( 'foreignKey' => 'id_cliente' ) );
-	public $hasOne = array( 'Ctacte' => array( 'foreignKey' => 'id_cliente' ) );
+//	public $hasMany = array( 'ServiciosCliente' => array( 'foreignKey' => 'id_cliente' ) );
+	public $hasOne = array( 'Ctacte' => array( 'className' => 'Gestotux.Ctacte', 'foreignKey' => 'id_cliente' ) );
 	
     /**
  	 * Verifica si existe un cliente con el email pasado como parametro

@@ -54,7 +54,6 @@ class GestotuxController extends GestotuxAppController {
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
 		$this->set( 'nctacte', $tmp['Ctacte']['numero_cuenta'] );
-		$this->helpers[] = 'Number';
 	}
 	
    /*!

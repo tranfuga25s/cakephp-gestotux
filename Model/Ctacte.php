@@ -35,7 +35,7 @@ class Ctacte extends GestotuxAppModel {
 	*
 	* @var array
 	*/
-	public $hasMany = array( 'ItemCtaCte' => array( 'className' => 'ItemCtacte', 'foreignKey' => 'id_ctacte' ) );
+	public $hasMany = array( 'ItemCtaCte' => array( 'className' => 'Gestotux.ItemCtacte', 'foreignKey' => 'id_ctacte' ) );
 
    /**
     * Funcion para obtener el saldo de la cuenta corriente
