@@ -10,7 +10,7 @@ class GestotuxAppController extends AppController {
 		     'datasource' => 'Database/Mysql',
 		     'persistent' => false,
 		     'host' => 'trafu.no-ip.org',
-		     'user' => 'gestotux',
+		     'login' => 'gestotux',
 		     'password' => 'gestotux',
 		     'database' => 'gestotux',
 		     'prefix' => '',
