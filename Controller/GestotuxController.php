@@ -4,16 +4,13 @@ App::uses( 'CakeEmail', 'Network/Email' );
 
 class GestotuxController extends GestotuxAppController {
 	
-	public $uses = false;
+	public $uses = array( 'Cliente', 'Ctacte', 'ItemCtacte' );
 
    /*!
     * Accion de "Mi Cuenta"
     */
 	public function administracion_index() {
 		$this->necesitaConexion();
-		$this->loadModel( 'Ctacte' );
-		$this->Ctacte->setDatasoruce( 'gestotux' );
-		$this->Ctacte->__construct();
 		// busco el saldo de la cuenta corriente
 		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( Configure::read( "Gestotux.cliente" ) ) );
 	}
