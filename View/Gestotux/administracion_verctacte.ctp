@@ -7,7 +7,7 @@ $saldo = 0.0;
 </script>
 <h2>Mi cuenta corriente</h2>
 <p><b>Cantidad de items actualmente:</b> <?php echo count( $lista ); ?></p>
-<table cellpadding="0" cellspacing="0" border="1">
+<table>
 	<tbody>
 		<th style="text-align: center;">Fecha</th>
 		<th>Descripcion</th>
