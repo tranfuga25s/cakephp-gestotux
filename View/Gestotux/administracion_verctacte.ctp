@@ -20,14 +20,14 @@ $saldo = 0.0;
 				<?php echo $item['ItemCtacte']['fecha']; ?>
 			</td>
 			<td width="60%"><?php echo $item['ItemCtacte']['descripcion']; ?></td>
-			<td style="text-align: right;"><?php echo $this->Number->currency( $item['ItemCtacte']['debe'] ); ?></td>
-			<td style="text-align: right;"><?php echo $this->Number->currency( $item['ItemCtacte']['haber'] ); ?></td>
-			<td style="text-align: right;"><?php $saldo -= $item['ItemCtacte']['debe']; $saldo += $item['ItemCtacte']['haber']; echo $this->Number->currency( $saldo ); ?></td>
+			<td style="text-align: right;"><?php echo $this->Number->currency( $item['ItemCtacte']['debe'], 'USD', array( 'negative' => '- ' )  ); ?></td>
+			<td style="text-align: right;"><?php echo $this->Number->currency( $item['ItemCtacte']['haber'], 'USD', array( 'negative' => '- ' )  ); ?></td>
+			<td style="text-align: right;"><?php $saldo -= $item['ItemCtacte']['debe']; $saldo += $item['ItemCtacte']['haber']; echo $this->Number->currency( $saldo, 'USD', array( 'negative' => '- ' ) ); ?></td>
 		</tr>
 		<?php endforeach; ?>
 		<tr>
 			<td colspan="4" style="background-color: black; color: white; font-weight: bold; text-align: right;">Saldo Final</td>
-			<td style="border: 2px solid black; text-align: center; font-size: 110%; font-weight: bold;"><?php echo $this->Number->currency( $saldo_actual ); ?></td>
+			<td style="border: 2px solid black; text-align: center; font-size: 110%; font-weight: bold;"><?php echo $this->Number->currency( $saldo_actual, 'USD', array( 'negative' => '- ' )  ); ?></td>
 		</tr>
 	</tbody>
 </table>
