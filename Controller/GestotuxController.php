@@ -53,7 +53,9 @@ class GestotuxController extends GestotuxAppController {
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
+		$this->set( 'saldo_actual', $this->Ctacte->obtenerSaldo( $id_cliente ) );
 		$this->set( 'nctacte', $tmp['Ctacte']['numero_cuenta'] );
+		$this->helpers[] = 'Number';
 	}
 	
    /*!
