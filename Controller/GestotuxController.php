@@ -12,7 +12,7 @@ class GestotuxController extends GestotuxAppController {
 	public function administracion_index() {
 		$this->necesitaConexion();
 		// busco el saldo de la cuenta corriente
-		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( Configure::read( "Gestotux.cliente" ) ) );
+		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( intval( Configure::read( "Gestotux.cliente" ) ) ) );
 	}
 
    /*!
@@ -27,7 +27,7 @@ class GestotuxController extends GestotuxAppController {
 					///@todo Revisar tipo!
 					$this->necesitaConexion();
 					$this->loadModel( 'Cliente' );
-					$cliente = $this->Cliente->read( null, Configure::read( "Gestotux.cliente" ) );
+					$cliente = $this->Cliente->read( null, intval( Configure::read( "Gestotux.cliente" ) ) );
 					$data = $this->data['infomepago'];
 					$email = new CakeEmail();
 					$email->addTo( 'esteban.zeller@gmail.com' );
@@ -50,7 +50,7 @@ class GestotuxController extends GestotuxAppController {
 		}
 		$this->necesitaConexion();
 		$this->loadModel( 'Cliente' );
-		$id_cliente = Configure::read( "Gestotux.cliente" );
+		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
 		$cliente = $this->Cliente->read( null, $id_cliente );
 		$this->set( 'razon_social', $cliente['Cliente']['razon_social'] );
 		$this->loadModel( 'Ctacte' );
@@ -65,7 +65,7 @@ class GestotuxController extends GestotuxAppController {
     */	
 	public function administracion_verctacte() {
 		$this->necesitaConexion();
-		$id_cliente = Configure::read( "Gestotux.cliente" );
+		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
 		$this->loadModel( 'Ctacte' );
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
 													'recursive' => -1,

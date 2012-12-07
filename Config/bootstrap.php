@@ -7,4 +7,5 @@
   */
   App::uses( 'IniReader', 'Configure' );
   Configure::config( 'Gestotux', new IniReader( ROOT.DS.APP_DIR.DS.'Plugin'.DS.'gestotux'.DS.'Config'.DS.'cliente' ) );
+  Configure::load( '', 'Gestotux' );
 ?>
