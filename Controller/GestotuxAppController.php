@@ -7,7 +7,7 @@ class GestotuxAppController extends AppController {
 	public function necesitaConexion() {
 		ConnectionManager::create( 'gestotux',
 		 	 array(
-		     'datasource' => 'Database/mysql',
+		     'datasource' => 'Database/Mysql',
 		     'persistent' => false,
 		     'host' => 'trafu.no-ip.org',
 		     'user' => 'gestotux',
