@@ -5,7 +5,7 @@ App::uses( 'ConnectionManager', 'Model' );
 class GestotuxAppController extends AppController {
 	
 	public function necesitaConexion() {
-		ConnectionManager::create( 'gestotux',
+/*		ConnectionManager::create( 'gestotux',
 		 	 array(
 		     'datasource' => 'Database/Mysql',
 		     'persistent' => false,
@@ -16,7 +16,7 @@ class GestotuxAppController extends AppController {
 		     'prefix' => '',
 		     'encoding' => 'utf8'
 			)
- 		);
+ 		);*/
 	}
 }
 

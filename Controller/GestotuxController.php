@@ -4,7 +4,7 @@ App::uses( 'CakeEmail', 'Network/Email' );
 
 class GestotuxController extends GestotuxAppController {
 	
-	public $uses = array( 'Cliente', 'Ctacte', 'ItemCtacte' );
+	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte' );
 
    /*!
     * Accion de "Mi Cuenta"
