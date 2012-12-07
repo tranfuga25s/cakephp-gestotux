@@ -8,9 +8,7 @@
 	<br />
 	<h2>Estado de cuenta corriente</h2>
 	<p>Aqui está el saldo de su cuenta corriente:</p><br />
-	<div class="saldo">
-		$ 0.00
-	</div>
+	<div class="saldo"><?php echo $this->Number->currency( $saldo, 'USD', array( 'negative' => '- ' ) ); ?></div>
 	<br />
 	<h2>Acciones</h2>
 	<div id="acciones">
