@@ -1,5 +1,7 @@
 <?php
 
+App::uses( 'ConnectionManager', 'Model' );
+
 class GestotuxAppController extends AppController {
 	
 	public function necesitaConexion() {
