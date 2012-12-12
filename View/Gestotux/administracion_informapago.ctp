@@ -10,9 +10,9 @@
 	<fieldset>
 		<legend>Informe de pago</legend>
 		<label>Cliente:</label><?php echo $razon_social; echo $this->Form->input( 'id_cliente', array( 'type' => 'hidden', 'value' => $id_cliente ) ); ?><br /><br />
-		<label>Numero Ctacte:</label><?php echo $nctacte; ?><br /><br />
+		<label>Numero Ctacte:</label>#<?php echo $nctacte; ?><br /><br />
 	<?php
-		echo $this->Form->input( 'importe', array( 'label' => "Importe:", 'type' => 'text' ) );
+		echo $this->Form->input( 'importe', array( 'label' => "Importe:", 'type' => 'text', 'between' => '$' ) );
 		echo $this->Form->input( 'tipo', array( 'type' => 'radio', 'options' => array( 'Transferencia bancaria', 'Otro' ) ) );
 		echo $this->Form->input( 'texto', array( 'label' => "Aclaracion:", 'type' => 'textarea' ) );
 		echo $this->Form->input( 'adjunto', array( 'type' => 'file', 'label' => "Adjuntar comprobante" ) );
