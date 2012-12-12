@@ -6,7 +6,7 @@
 </div>
 <div>
 	Utilice el siguiente formulario para enviarnos su av&iacute;so de pago:
-	<?php echo $this->Form->create( 'informepago' ); ?>
+	<?php echo $this->Form->create( 'informepago', array( 'type' => 'file' ) ); ?>
 	<fieldset>
 		<legend>Informe de pago</legend>
 		<label>Cliente:</label><?php echo $razon_social; echo $this->Form->input( 'id_cliente', array( 'type' => 'hidden', 'value' => $id_cliente ) ); ?><br /><br />

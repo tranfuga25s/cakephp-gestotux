@@ -3,7 +3,7 @@
 <b>Cliente:</b> <?php echo $cliente['razon_social']; ?><br />
 <b>Importe:</b> <?php echo $importe; ?><br />
 <b>Aclaracion:</b> <?php echo $aclaracion; ?><br />
-<?php if( $tipo == 1 ) { ?>
+<?php if( $tipo == 0 ) { ?>
 <b>Tipo:</b> Transferencia Bancaria<br />
 <?php } else { ?>
 <b>Tipo:</b> Otro<br />	

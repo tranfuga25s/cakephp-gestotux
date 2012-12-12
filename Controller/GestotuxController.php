@@ -4,7 +4,7 @@ App::uses( 'CakeEmail', 'Network/Email' );
 
 class GestotuxController extends GestotuxAppController {
 	
-	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte' );
+	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte', 'Gestotux.Servicio' );
 	public $helpers = array( 'Number' );
 
    /*!
@@ -13,6 +13,7 @@ class GestotuxController extends GestotuxAppController {
 	public function administracion_index() {
 		// busco el saldo de la cuenta corriente
 		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( intval( Configure::read( "Gestotux.cliente" ) ) ) );
+		$this->set( 'servicio', $this->Servicio->read( null, intval( Configure::read( "Gestotux.servicio" ) ) ) );
 	}
 
    /*!
@@ -24,29 +25,28 @@ class GestotuxController extends GestotuxAppController {
 				if( ( $this->data['informepago']['adjunto']['error'] ==  UPLOAD_ERR_OK &&
 				    $this->data['informepago']['adjunto']['size'] != 0 ) ||
 					( $this->data['informepago']['adjunto']['error'] == UPLOAD_ERR_NO_FILE ) ) {
-					///@todo Revisar tipo!
-					$this->necesitaConexion();
-					$this->loadModel( 'Cliente' );
 					$cliente = $this->Cliente->read( null, intval( Configure::read( "Gestotux.cliente" ) ) );
-					$data = $this->data['infomepago'];
+					$data = $this->data['informepago'];
 					$email = new CakeEmail();
 					$email->template( 'Gestotux.informepago', 'Gestotux.default' );
 					$email->addTo( 'esteban.zeller@gmail.com' );
 					$email->subject( "Informe de pago de ".$cliente['Cliente']['razon_social'] );
 					$email->from( $cliente['Cliente']['email'] );
-					$email->addAttachments( $this->data['informepago']['adjunto']['tmp_name'] );
+					$email->addAttachments( array( $this->data['informepago']['adjunto']['name'] => $this->data['informepago']['adjunto']['tmp_name'] ) );
 					$email->viewVars( 
 						array( 'cliente' => $cliente['Cliente'], 
 							   'importe' => $data['importe'],
 							   'aclaracion' => $data['texto'],
-							   'adjunto' => $data['adjunto'],
 							   'tipo' => $data['tipo'] )
 					);
+					$email->send();
+					$this->Session->setFlash( "Su informe de pago ha sido enviado. Le responderemos a la brevedad.", 'default', array( 'class' => 'success' ) );
+					$this->redirect( array( 'plugin' => 'gestotux', 'controller' => 'gestotux', 'action' => 'index' ) );
 				} else {
-					///@todo Agregar Errores de validación error al subir el archivo
+					$this->Session->setFlash( "No se pudo subir correctamente el archivo adjunto.", 'default', array( 'class' => 'error' ) );
 				}
 			} else {
-				///@todo Agregar Errores de validación error importe no numerico
+				$this->Session->setFlash( "Por favor, ingrese un importe que sea un número.", 'default', array( 'class' => 'error' ) );
 			}
 		}
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
@@ -87,8 +87,10 @@ class GestotuxController extends GestotuxAppController {
 			$email->addTo( 'esteban.zeller@gmail.com' );
 			$email->subject( "Consulta Administrativa de ".$cliente['Cliente']['razon_social'] );
 			$email->from( $cliente['Cliente']['email'] );
-			$email->addAttachments( $this->data['informepago']['adjunto']['tmp_name'] );
 			$email->viewVars( array( 'cliente' => $cliente['Cliente'], 'texto' => $data['texto'] ) );
+			$email->send();
+			$this->Session->setFlash( "Su consulta ha sido enviada. Le responderemos a la brevedad", 'default', array( 'class' => 'success' ) );
+			$this->redirect( array( 'plugin' => 'gestotux', 'controller' => 'gestotux', 'action' => 'index' ) );
 		}
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
 		$this->set( 'id_cliente', $id_cliente );
