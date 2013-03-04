@@ -31,6 +31,7 @@ $saldo = 0.0;
 		</tr>
 	</tbody>
 </table>
+<br />
 <div class="acciones">
 	<?php echo $this->Html->link( 'Volver', array( 'plugin' => 'gestotux', 'controller' => 'gestotux', 'action' => 'index' ) ); ?>
 </div>

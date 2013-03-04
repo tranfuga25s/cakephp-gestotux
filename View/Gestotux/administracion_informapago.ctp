@@ -4,6 +4,7 @@
 <div class="acciones">
 	<?php echo $this->Html->link( 'Volver', array( 'plugin' => 'gestotux', 'controller' => 'gestotux', 'action' => 'index' ) ); ?>
 </div>
+<br />
 <div>
 	Utilice el siguiente formulario para enviarnos su av&iacute;so de pago:
 	<?php echo $this->Form->create( 'informepago', array( 'type' => 'file' ) ); ?>
