@@ -6,6 +6,11 @@ class GestotuxController extends GestotuxAppController {
 	
 	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte', 'Gestotux.Servicio' );
 	public $helpers = array( 'Number' );
+	
+	public function beforeFilter() {
+		$this->necesitaConexion();
+		parent::beforeFilter();
+	}
 
    /*!
     * Accion de "Mi Cuenta"
