@@ -3,6 +3,7 @@
 <div class="acciones">
 	<?php echo $this->Html->link( 'Volver', array( 'plugin' => 'gestotux', 'controller' => 'gestotux', 'action' => 'index' ) ); ?>
 </div>
+<br />
 <h1>Consulta administrativa</h1>
 <p>Utilice el siguiente formulario para enviarnos su consulta:</p>
 <div class="consulta form">

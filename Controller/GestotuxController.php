@@ -6,6 +6,11 @@ class GestotuxController extends GestotuxAppController {
 	
 	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte', 'Gestotux.Servicio' );
 	public $helpers = array( 'Number' );
+	
+	public function beforeFilter() {
+		$this->necesitaConexion();
+		parent::beforeFilter();
+	}
 
    /*!
     * Accion de "Mi Cuenta"
@@ -102,7 +107,16 @@ class GestotuxController extends GestotuxAppController {
     * Functión de dar de baja el servicio que está corriendo
     */	
 	public function administracion_darbaja() {
-		
+		if( $this->request->isPost() ) {
+			
+		}
+		$this->loadModel( 'Gestotux.Cliente' );
+		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
+		$cliente = $this->Cliente->read( null, $id_cliente );
+		$this->loadModel( 'Gestotux.Servicio' );
+		$servicio = $this->Servicio->read( null, intval( Configure::read( "Gestotux.servicio" ) ) );
+		$this->set( 'servicio', $servicio );
+		$this->set( 'cliente', $cliente );
 	}
 }
 
