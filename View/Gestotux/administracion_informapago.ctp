@@ -20,3 +20,4 @@
 	</fieldset>
 	<?php echo $this->Form->end( 'Enviar informe' ); ?>	
 </div>
+<?php echo $this->element( 'sponsor' ); ?>

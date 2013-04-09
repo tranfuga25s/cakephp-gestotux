@@ -38,3 +38,4 @@
 		<?php echo $this->Html->link( 'Dar de baja',          array( 'plugin' => 'gestotux', 'action' => 'darbaja'     ) ); ?>
 	</div> 
 </div>
+<?php echo $this->element( 'sponsor' ); ?>

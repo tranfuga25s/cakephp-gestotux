@@ -15,3 +15,4 @@
 		?>	
 	</fieldset>
 </div>
+<?php echo $this->element( 'sponsor' ); ?>
