@@ -10,6 +10,20 @@ class GestotuxController extends GestotuxAppController {
 	public function beforeFilter() {
 		$this->necesitaConexion();
 		parent::beforeFilter();
+		$this->Auth->allow( array( 'precio' ) );
+	}
+	
+	/**
+	 * Funcion para mostrar el listado de precios del sistema que está elegido
+	 * @param id_servicio Identificador del servicio
+	 * @author Esteban Zeller
+	 */
+	public function precio( $id_servicio = null ) {
+		$this->Servicio->id = $id_servicio;
+		if( !$this->Servicio->exists() ) {
+			throw new NotFoundException( "El Servicio quee está buscando no existe en nuestra base de datos" );
+		}
+		$this->set( 'servicio', $this->Servicio->read( null, $id_servicio ) );
 	}
 
    /*!
