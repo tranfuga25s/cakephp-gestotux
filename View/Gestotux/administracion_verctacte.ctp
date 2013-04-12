@@ -17,7 +17,7 @@ $saldo = 0.0;
 		<?php foreach( $lista as $item ) : ?>
 		<tr>
 			<td style="text-align: center;">
-				<?php echo $item['ItemCtacte']['fecha']; ?>
+				<?php echo $this->Time->i18nFormat( $item['ItemCtacte']['fecha'] ); ?>
 			</td>
 			<td width="60%"><?php echo $item['ItemCtacte']['descripcion']; ?></td>
 			<td style="text-align: right;"><?php echo $this->Number->currency( $item['ItemCtacte']['debe'], 'USD', array( 'negative' => '- ' )  ); ?></td>

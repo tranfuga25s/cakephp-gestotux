@@ -23,9 +23,12 @@ class GestotuxController extends GestotuxAppController {
 		if( !$this->Servicio->exists() ) {
 			throw new NotFoundException( "El Servicio quee está buscando no existe en nuestra base de datos" );
 		}
-		$this->set( 'servicio', $this->Servicio->read( null, $id_servicio ) );
+		if ($this->request->is('requested')) {
+			return $this->Servicio->field( 'precio_base' );
+		}
+		$this->set( 'servicio', $this->Servicio->read( null, $id_servicio ) );			
 	}
-
+	
    /*!
     * Accion de "Mi Cuenta"
     */
