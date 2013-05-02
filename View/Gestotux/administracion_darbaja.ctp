@@ -17,7 +17,7 @@ $this->set( 'title_for_layout', "Dar de baja el servicio" );
 		<b>Saldo actual:</b>&nbsp;<?php echo $this->Number->currency( $cliente['Ctacte']['saldo'] ); ?>
 		<?php
 			if( $cliente['Ctacte']['saldo'] > 0 ) {
-				echo $this->Html->link( 'Debe regularizar su cuenta para darse de baja', array( 'controller' => 'gestotux', 'action' => 'informar_pago' ) );
+				echo $this->Html->link( 'Debe regularizar su cuenta para darse de baja', array( 'controller' => 'gestotux', 'action' => 'informapago' ) );
 			}
 		?>
 	</fieldset>
