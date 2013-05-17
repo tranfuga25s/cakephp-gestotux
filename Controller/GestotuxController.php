@@ -3,16 +3,16 @@
 App::uses( 'CakeEmail', 'Network/Email' );
 
 class GestotuxController extends GestotuxAppController {
-	
+
 	public $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ItemCtacte', 'Gestotux.Servicio' );
 	public $helpers = array( 'Number' );
-	
+
 	public function beforeFilter() {
 		$this->necesitaConexion();
 		parent::beforeFilter();
 		$this->Auth->allow( array( 'precio' ) );
 	}
-	
+
 	/**
 	 * Funcion para mostrar el listado de precios del sistema que está elegido
 	 * @param id_servicio Identificador del servicio
@@ -26,21 +26,27 @@ class GestotuxController extends GestotuxAppController {
 		if ($this->request->is('requested')) {
 			return $this->Servicio->field( 'precio_base' );
 		}
-		$this->set( 'servicio', $this->Servicio->read( null, $id_servicio ) );			
-	}
-	
-   /*!
-    * Accion de "Mi Cuenta"
-    */
-	public function administracion_index() {
-		// busco el saldo de la cuenta corriente
-		$this->set( 'saldo', $this->Ctacte->obtenerSaldo( intval( Configure::read( "Gestotux.cliente" ) ) ) );
-		$this->set( 'servicio', $this->Servicio->read( null, intval( Configure::read( "Gestotux.servicio" ) ) ) );
+		$this->set( 'servicio', $this->Servicio->read( null, $id_servicio ) );
 	}
 
    /*!
+    * Accion de "Mi Cuenta"
+    */
+    public function administracion_index() {
+        // busco el saldo de la cuenta corriente
+        $id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
+        $this->loadModel( 'Gestotux.Cliente' );
+        $this->Cliente->id = $id_cliente;
+        if( !$this->Cliente->exists() ) {
+            throw new NotFoundException( "El cliente #".$id_cliente." no existe!" );
+        }
+        $this->set( 'saldo', $this->Ctacte->obtenerSaldo( $id_cliente ) );
+        $this->set( 'servicio', $this->Servicio->read( null, $id_cliente ) );
+    }
+
+   /*!
     * Generación de la pagina de informe de pago
-    */	
+    */
 	public function administracion_informapago() {
 		if( $this->request->isPost() ) {
 			if( is_numeric( $this->data['informepago']['importe'] ) ) {
@@ -55,8 +61,8 @@ class GestotuxController extends GestotuxAppController {
 					$email->subject( "Informe de pago de ".$cliente['Cliente']['razon_social'] );
 					$email->from( $cliente['Cliente']['email'] );
 					$email->addAttachments( array( $this->data['informepago']['adjunto']['name'] => $this->data['informepago']['adjunto']['tmp_name'] ) );
-					$email->viewVars( 
-						array( 'cliente' => $cliente['Cliente'], 
+					$email->viewVars(
+						array( 'cliente' => $cliente['Cliente'],
 							   'importe' => $data['importe'],
 							   'aclaracion' => $data['texto'],
 							   'tipo' => $data['tipo'] )
@@ -80,17 +86,17 @@ class GestotuxController extends GestotuxAppController {
 													'fields' => array( 'numero_cuenta' ) ) );
 		$this->set( 'nctacte', $tmp['Ctacte']['numero_cuenta'] );
 	}
-	
+
    /*!
     * Listado de cuenta corriente correspondiente al cliente
-    */	
+    */
 	public function administracion_verctacte() {
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
 		$tmp = $this->Ctacte->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ),
 													'recursive' => -1,
 													'fields' => array( 'numero_cuenta' ) ) );
 		$idctacte = $tmp['Ctacte']['numero_cuenta'];
-		unset( $tmp ); 
+		unset( $tmp );
 		// Busco la cuenta corriente para el cliente
 		$this->set( 'lista', $this->ItemCtacte->find( 'all', array( 'conditions' => array( 'id_ctacte' => $idctacte ) ) ) );
 		$this->set( 'saldo_actual', $this->Ctacte->obtenerSaldo( $id_cliente ) );
@@ -98,7 +104,7 @@ class GestotuxController extends GestotuxAppController {
 
    /*!
     * Function de envió de consulta administrativa
-    */	
+    */
 	public function administracion_consulta() {
 		if( $this->request->isPost() ) {
 			$this->Cliente->recursive = -1;
@@ -119,13 +125,13 @@ class GestotuxController extends GestotuxAppController {
 		$cliente = $this->Cliente->read( null, $id_cliente );
 		$this->set( 'razon_social', $cliente['Cliente']['razon_social'] );
 	}
-	
+
    /*!
     * Functión de dar de baja el servicio que está corriendo
-    */	
+    */
 	public function administracion_darbaja() {
 		if( $this->request->isPost() ) {
-			
+
 		}
 		$this->loadModel( 'Gestotux.Cliente' );
 		$id_cliente = intval( Configure::read( "Gestotux.cliente" ) );
