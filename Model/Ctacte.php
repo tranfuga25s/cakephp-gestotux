@@ -6,7 +6,7 @@ App::uses('AppModel', 'Model');
 * @property Item $Item
 */
 class Ctacte extends GestotuxAppModel {
-	
+
 	public $useDbConfig = 'gestotux';
 
 	/**
@@ -27,9 +27,9 @@ class Ctacte extends GestotuxAppModel {
 	* @var string
 	*/
 	public $displayField = 'numero_cuenta';
-	
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	
+
 	/**
 	* hasAndBelongsToMany associations
 	*
@@ -42,13 +42,17 @@ class Ctacte extends GestotuxAppModel {
     * @param id_cliente Identificador del cliente
     * @return Saldo en su cuenta corriente o null
     * @throws NotFoundException si el cliente no existe
-    */	
+    */
 	public function obtenerSaldo( $id_cliente = null ) {
 		if( $id_cliente == null ) {
 			throw new NotFoundException( 'El cliente es nulo' );
 		}
 		$result = $this->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ), 'fields' => 'saldo', 'recursive' => -1 ) );
-		return $result['Ctacte']['saldo'];
+		        if( $result == array() ) {
+            return "No hay datos";
+        } else {
+          return $result['Ctacte']['saldo'];
+        }
 	}
 
 }
