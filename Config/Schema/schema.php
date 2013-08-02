@@ -8,15 +8,17 @@ class GestotuxSchema extends CakeSchema {
     public function after($event = array()) {
     }
 
-    public $sms = array(
-        'cliente_id' => array( 'type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary' ),
-        'fecha' => array( 'type' => 'date', 'null' => false, 'default' => null, 'key' => 'primary' ),
+    public $conteo_sms = array(
+        'id_conteo_sms' => array( 'type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary' ),
+        'cliente_id' => array( 'type' => 'integer', 'null' => false, 'default' => null, 'length' => 10 ),
+        'fecha' => array( 'type' => 'date', 'null' => false, 'default' => null ),
         'envios' => array( 'type' => 'integer', 'null' => false, 'default' => 0, 'length' => 10 ),
         'recibidos' => array( 'type' => 'integer', 'null' => false, 'default' => 0, 'length' => 10),
-        'costo' => array('type' => 'double', 'null' => true, 'default' => null, 'length' => 10),
+        'costo' => array('type' => 'float', 'null' => true, 'default' => null, 'length' => '10,4' ),
         'indexes' => array(
-            'PRIMARY' => array('column' => array( 'cliente_id', 'fecha' ), 'unique' => 1)
+            'PRIMARY' => array( 'column' => array( 'id_conteo_sms' ), 'unique' => 1 ),
+            'clientefecha' => array( 'column' => array( 'cliente_id', 'fecha' ), 'unique' => 1 )
         ),
-        'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_spanish_ci', 'engine' => 'MyISAM')
+        'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_spanish_ci', 'engine' => 'InnoDB')
     );
 }
