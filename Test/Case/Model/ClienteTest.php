@@ -55,6 +55,7 @@ class ClienteTest extends CakeTestCase {
 	 * @return void
 	 */
 	/*public function testDarDeAlta() {
+		
 	}*/
 
 }

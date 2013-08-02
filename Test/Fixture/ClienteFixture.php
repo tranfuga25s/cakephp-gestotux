@@ -10,6 +10,6 @@ class ClienteFixture extends CakeTestFixture {
 	 *
 	 * @var array
 	 */
-	public $import = array( 'model' => 'Cliente', 'records' => true, 'connection' => 'test' );
+	public $import = array( 'model' => 'cliente', 'records' => true, 'connection' => 'test' );
 
 }

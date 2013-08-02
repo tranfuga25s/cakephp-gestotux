@@ -21,7 +21,7 @@ class GestotuxController extends GestotuxAppController {
 	public function precio( $id_servicio = null ) {
 		$this->Servicio->id = $id_servicio;
 		if( !$this->Servicio->exists() ) {
-			throw new NotFoundException( "El Servicio quee está buscando no existe en nuestra base de datos" );
+			throw new NotFoundException( "El Servicio que está buscando no existe en nuestra base de datos" );
 		}
 		if ($this->request->is('requested')) {
 			return $this->Servicio->field( 'precio_base' );
