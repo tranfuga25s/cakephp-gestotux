@@ -13,6 +13,8 @@ class ConteoSms extends GestotuxAppModel {
      */
 	public $primaryKey = 'id_conteo_sms';
 
+
+    public $useDbConfig = 'default';
     /**
      * Validation rules
      *
@@ -154,5 +156,28 @@ class ConteoSms extends GestotuxAppModel {
             }
         }
         return false;
+    }
+    
+    public function costoMensaje( $fecha = null ) {
+        if( is_null( $this->_id_cliente ) ) {
+            return 0.0;
+        }
+
+        $condicion_fecha = 'fecha = DATE( NOW() )';
+        if( !is_null( $fecha ) ) {
+            if( is_array( $fecha ) ) {
+                $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
+            } else {
+                $condicion_fecha = array( 'fecha' => $fecha );
+            }
+        }
+
+        $data = $this->find( 'first', array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+                                            'fields' => array( 'costo' ),
+                                            'recursive' => -1 ) );
+        if( array_key_exists( 'ConteoSms', $data ) ) {
+            return $data['ConteoSms']['costo'];
+        }
+        return 0.0;
     }
 }
