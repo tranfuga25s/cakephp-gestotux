@@ -24,11 +24,11 @@ class ConteoSmsFixture extends CakeTestFixture {
         'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_spanish_ci', 'engine' => 'InnoDB')
 	);
 
-/**
- * Records
- *
- * @var array
- */
+    /**
+     * Records
+     *
+     * @var array
+     */
 	public $records = array(
 		array(
 		    'id_conteo_sms' => 1,
@@ -37,7 +37,19 @@ class ConteoSmsFixture extends CakeTestFixture {
 			'envios' => 1,
 			'recibidos' => 1,
 			'costo' => 1
-		),
+		)
 	);
+
+    public function init() {
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => date( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 1
+        );
+        parent::init();
+    }
 
 }

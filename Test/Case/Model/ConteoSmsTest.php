@@ -44,14 +44,14 @@ class ConteoSmsTest extends CakeTestCase {
     public function testVerificarCantidadEnviada() {
         $this->assertEqual( $this->ConteoSms->cantidadEnviada(), 1, "No corresponde la cantidad enviada" );
         $this->assertEqual( $this->ConteoSms->cantidadEnviada( date('Y').'-'.date('m').(date('d')-1) ), 0, "Error al buscar otra fecha" );
-        $this->assertEqual( $this->ConteoSms->cantidadEnviada( array( 'inicio' => date('Y').'-'.date('m').(date('d')-1), 'fin' => date( 'Y-m-d' ) ) ), 1, "Error al buscar otra fechas con array" );
+        $this->assertEqual( $this->ConteoSms->cantidadEnviada( array( 'inicio' => date('Y').'-'.date('m').'-'.(date('dd')-1), 'fin' => date( 'Y-m-d' ) ) ), 1, "Error al buscar otra fechas con array" );
     }
 
     public function testVerificarCantidadRecibida() {
          $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 1, "No corresponde la cantidad enviada" );
          // En distintas fechas
          $this->assertEqual( $this->ConteoSms->cantidadRecibida( date('Y').'-'.date('m').(date('d')-1) ), 0, "Error al buscar otra fecha" );
-         $this->assertEqual( $this->ConteoSms->cantidadRecibida( array( 'inicio' => date('Y').'-'.date('m').(date('d')-1), 'fin' => date( 'Y-m-d' ) ) ), 1, "Error al buscar otra fechas con array" );
+         $this->assertEqual( $this->ConteoSms->cantidadRecibida( array( 'inicio' => date('Y').'-'.date('m').'-'.(date('d')-1), 'fin' => date( 'Y-m-d' ) ) ), 1, "Error al buscar otra fechas con array" );
     }
 
     public function testAgregarEnviado() {

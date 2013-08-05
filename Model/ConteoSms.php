@@ -64,16 +64,16 @@ class ConteoSms extends GestotuxAppModel {
             return 0;
         }
 
-        $condicion_fecha = 'fecha = DATE( NOW() )';
+        $condicion_fecha = array( '`ConteoSms`.`fecha` = DATE( NOW() )' );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
-                $condicion_fecha = array( 'AND' => array( 'fecha <=' => $fecha['fin'], 'fecha >=' => $fecha['inicio'] ) );
+                $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
             } else {
-                $condicion_fecha = array( 'fecha' => $fecha );
+                $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
             }
         }
 
-        $data = $this->find( 'first', array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+        $data = $this->find( 'first', array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
                                             'fields' => array( 'envios' ),
                                             'recursive' => -1 ) );
         if( array_key_exists( 'ConteoSms', $data ) ) {
@@ -90,7 +90,7 @@ class ConteoSms extends GestotuxAppModel {
         $condicion_fecha = 'fecha = DATE( NOW() )';
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
-                $condicion_fecha = array( 'AND' => array( 'fecha <=' => $fecha['fin'], 'fecha >=' => $fecha['inicio'] ) );
+                $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
             } else {
                 $condicion_fecha = array( 'fecha' => $fecha );
             }
@@ -110,13 +110,13 @@ class ConteoSms extends GestotuxAppModel {
             return false;
         }
 
-        $condicion_fecha = 'fecha = DATE( NOW() )';
+        $condicion_fecha = '`ConteoSms`.`fecha` = DATE( NOW() )';
         if( $fecha != null ) {
-            $condicion_fecha = array( 'fecha' => $fecha );
+            $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
         }
 
         $datos = $this->find( 'first',
-            array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+            array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
                    'fields'     => array( 'id_conteo_sms', 'envios' ) ) );
         $cantidad_anterior = intval( $datos['ConteoSms']['envios'] );
         $this->id = $datos['ConteoSms']['id_conteo_sms'];
@@ -135,13 +135,13 @@ class ConteoSms extends GestotuxAppModel {
             return false;
         }
 
-        $condicion_fecha = 'fecha = DATE( NOW() )';
+        $condicion_fecha = '`ConteoSms`.`fecha` = DATE( NOW() )';
         if( $fecha != null ) {
-            $condicion_fecha = array( 'fecha' => $fecha );
+            $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
         }
 
         $datos = $this->find( 'first',
-            array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+            array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
                    'fields'     => array( 'id_conteo_sms', 'recibidos' ) ) );
 
         $cantidad_anterior = intval( $datos['ConteoSms']['recibidos'] );
