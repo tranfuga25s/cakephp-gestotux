@@ -61,9 +61,17 @@ class ConteoSmsController extends GestotuxAppController {
     }
     
     public function administracion_index() {
-        $this->set( 'enviados', $this->ConteoSms->cantidadEnviada() );
-        $this->set( 'recibidos', $this->ConteoSms->cantidadRecibida() );
-        $this->set( 'costo', $this->ConteoSms->costoMensaje() );
+        if( $this->request->is('requested') ) {
+            return array(
+                'enviados' => $this->ConteoSms->cantidadEnviada(),
+                'recibidos' => $this->ConteoSms->cantidadRecibida(),
+                'costo' => $this->ConteoSms->costoMensaje()
+            );
+        } else {
+            $this->set( 'enviados', $this->ConteoSms->cantidadEnviada() );
+            $this->set( 'recibidos', $this->ConteoSms->cantidadRecibida() );
+            $this->set( 'costo', $this->ConteoSms->costoMensaje() );
+        }
     }
 
 }
