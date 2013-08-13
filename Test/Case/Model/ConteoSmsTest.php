@@ -73,5 +73,14 @@ class ConteoSmsTest extends CakeTestCase {
         $this->assertEqual( $this->ConteoSms->agregarRecibido( date( 'Y-m-d' ), 2 ), true, "La llamada con fecha debería de devolver verdadero" );
         $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 5, "La cantidad Recibida debería ser 4" );
     }
+    
+    public function testConteoSmsPorMes() {
+        // Debe devolver el conteo maximo de mesnajes salientes y entrantes
+    }
+    
+    public function testPrecioSmsPorMes() {
+        // Debe devolver el maximo precio de todo el mes
+        
+    }
 
 }

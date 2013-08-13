@@ -180,4 +180,12 @@ class ConteoSms extends GestotuxAppModel {
         }
         return 0.0;
     }
+    
+    public function buscarConteoMes( $id_cliente, $mes ) {
+        return 0;
+    }
+    
+    public function buscarPrecioSms( $id_cliente, $mes ) {
+        return 0.0;
+    }
 }
