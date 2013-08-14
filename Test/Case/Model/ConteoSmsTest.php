@@ -84,7 +84,11 @@ class ConteoSmsTest extends CakeTestCase {
     
     public function testPrecioSmsPorMes() {
         // Debe devolver el maximo precio de todo el mes
-        
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( 0 ), 0.0, "No corresponde la cantida devuelta cuando el mes es incorrecto" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms(), 0.0, "No corresponde la cantida devuelta cuando el mes es nulo" );
+        $this->assertEqual( $this->conteoSms->buscarPrecioSms( date( 'j' ) ), 1.4, "No corresponde el precio pasado en este mes" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( date( 'j' )-1 ), 10.1, "No corresponde el precio respecto al mes anterior" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( date( 'j' )-2 ), 0.0, "No corresponde el precio respecto al 2 meses antes" );
     }
 
 }

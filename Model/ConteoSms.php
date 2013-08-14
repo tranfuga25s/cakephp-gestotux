@@ -194,6 +194,24 @@ class ConteoSms extends GestotuxAppModel {
     }
     
     public function buscarPrecioSms( $mes ) {
+        if( is_null( $mes ) || $mes <= 0 ) {
+            return 0.0;
+        }
+        $finicio = new DateTime();
+        $finicio->setDate( date( 'Y' ), $mes, 1 );
+        $ffin = clone $finicio;
+        $ffin->add( New DateInterval( "P1M" ) );
+        $datos = $this->find( 'first', array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+                                     'fields' => array( 'MAX( costo )' ),
+                                     'recursive' => -1
+                                    )
+        ); 
+        if( count( $datos ) > 0 ) {
+            if( array_key_exists( 'ConteoSms', $datos ) ) {
+                return $datos['ConteoSms']['MAX( costo )'];
+            }
+        }
         return 0.0;
+                                     
     }
 }
