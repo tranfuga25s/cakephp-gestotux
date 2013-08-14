@@ -181,11 +181,19 @@ class ConteoSms extends GestotuxAppModel {
         return 0.0;
     }
     
-    public function buscarConteoMes( $id_cliente, $mes ) {
-        return 0;
+    public function buscarConteoMes( $mes = null ) {
+        if( is_null( $mes ) || $mes <= 0 ) {
+            return 0;
+        }
+        $finicio = new DateTime();
+        $finicio->setDate( date( 'Y' ), $mes, 1 );
+        $ffin = clone $finicio;
+        $ffin->add( New DateInterval( "P1M" ) );
+        $rango = array( 'inicio' => $finicio->format( 'Y-m-d' ), 'fin' => $ffin->format( 'Y-m-d' ) );
+        return $this->cantidadEnviada( $rango ) + $this->cantidadRecibida( $rango );
     }
     
-    public function buscarPrecioSms( $id_cliente, $mes ) {
+    public function buscarPrecioSms( $mes ) {
         return 0.0;
     }
 }

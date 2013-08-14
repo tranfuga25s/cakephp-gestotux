@@ -76,6 +76,10 @@ class ConteoSmsTest extends CakeTestCase {
     
     public function testConteoSmsPorMes() {
         // Debe devolver el conteo maximo de mesnajes salientes y entrantes
+        $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 1, "No corresponde la cantidad recibida para el día de hoy" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes( date( 'j' ) ), 10, "No corresponde la cantidad contabilizada del mes" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes( 0 ), 0, "No corresponde la cantida devuelta cuando el mes es incorrecto" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes(), 0, "No corresponde la cantida devuelta cuando el mes es nulo" );
     }
     
     public function testPrecioSmsPorMes() {
