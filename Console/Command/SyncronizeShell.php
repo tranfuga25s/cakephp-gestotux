@@ -24,5 +24,9 @@ class SyncronizeShell extends AppShell {
             $this->out( " - ".$tabla );
         }
     }
+    
+    public function sincronizarTodo() {
+        $this->out( "No implementado" );
+    }
 }
 ?>
