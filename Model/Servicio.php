@@ -22,7 +22,7 @@ class Servicio extends GestotuxAppModel {
 	public $primaryKey = 'id_servicio';
 
 
-	public function read( $fields, $id ) {
+	public function read( $fields = null, $id = null ) {
 		$ret = parent::read( $fields, $id );
 		if( array_key_exists( 'periodo', $ret['Servicio'] ) ) {
 			switch( $ret['Servicio']['periodo'] ) {
