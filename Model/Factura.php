@@ -14,5 +14,10 @@ class Factura extends GestotuxAppModel {
 	 * @var array
 	 */
 	public $hasMany = array( 'ItemFactura' => array( 'foreignKey' => 'id_factura' ) );
+    
+    
+    public function agregarFacturaSms( $id_cliente, $items ) {
+        return false;
+    }
 	
 }

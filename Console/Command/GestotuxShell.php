@@ -1,10 +1,11 @@
 <?php
 
 App::uses('CakeEmail', 'Network/Email');
+App::uses('Gestotux', 'Gestotux.Controller' );
 
 class GestotuxShell extends AppShell {
 
-	var $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.Conteosms' );
+	var $uses = array( 'Gestotux.Cliente', 'Gestotux.Ctacte', 'Gestotux.ConteoSms', 'Gestotux.Factura' );
 
 	public function main() {
 		$this->out('Opciones de la consola de gestotux:');
@@ -14,6 +15,14 @@ class GestotuxShell extends AppShell {
 	}
 
     public function contabilizarMensajes() {
+        ConnectionManager::create( 'gestotux',
+            array(
+                'datasource' => 'Database/Sqlite',
+                'persistent' => false,
+                'database' => '/home/ezeller/Programacion/trsis/app/trsisgestotux.sqlite',
+                'prefix' => '',
+                'encoding' => 'utf8'
+            ) );
         // Verifico que exista el cliente y esté todo configurado
         if( !Configure::check( 'Gestotux' ) ) 
         { $this->out( 'Gestotux no configurado. No se hace nada' ); return; }
@@ -25,6 +34,8 @@ class GestotuxShell extends AppShell {
         $this->Cliente->id = intval( Configure::read( 'Gestotux.cliente' ) );
         if( !$this->Cliente->exists() ) 
         { $this->out( 'El plugin de gestotux no está configurado correctamente. No existe el cliente' ); return; }
+        $id_cliente = intval( Configure::read( 'Gestotux.cliente' ) );
+        
         $id_ctacte = $this->Ctacte->obtenerCtacte( $this->Cliente->id );
         if( $id_ctacte === false ) { $this->out( 'No hay asociación entre el cliente y la cuenta corriente' ); return; }
 
@@ -38,16 +49,16 @@ class GestotuxShell extends AppShell {
         $texto = "Cobro de mensajes sms utilizados - Mes: ".$texto_mes;
         
         $items = array( array( 'cantidad' => $cant_mensajes, 'texto' => $texto, 'precio_unitario' => $precio_mensaje ) );
-        if( !$this->Factura->agregarFacturaSms( $id_cliente, $items ) ) {
+        /*if( !$this->Factura->agregarFacturaSms( $id_cliente, $items ) ) {
             $this->out( 'No se pudo agregar correctamente la factura de los mensajes' );
             return;
         }
         $this->out( 'Factura guardada correctamente' );
         $id_factura = $this->Factura->id;
-        $num_factura = $this->Factura->obtenerNumeroComprobante();
+        $num_factura = $this->Factura->obtenerNumeroComprobante();*/
         
         $datos = array(
-            'factura' => array( 'id' => $id_factura, 'numero' => $num_factura ),
+            'factura' => array( 'id' => /*$id_factura*/0, 'numero' => /*$num_factura*/"00000-00000" ),
             'sms' => array(
                 'cantidad' => $cant_mensajes,
                 'precio_mensaje' => $precio_mensaje,

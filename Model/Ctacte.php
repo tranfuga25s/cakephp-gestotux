@@ -66,11 +66,11 @@ class Ctacte extends GestotuxAppModel {
             return false;
         }
         
-        $result = $this->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ), 'fields' => 'id_ctacte', 'recursive' => -1 ) );
+        $result = $this->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ), 'fields' => $this->primaryKey, 'recursive' => -1 ) );
         if( $result == array() ) {
             return false;
         } else {
-            return $result['Ctacte']['id_ctacte'];
+            return $result[$this->name][$this->primaryKey];
         }
      }
 

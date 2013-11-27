@@ -23,12 +23,22 @@ extract(  $this->requestAction( array( 'plugin' => 'gestotux', 'controller' => '
             <tr>
                 <td>Costo por mensaje:</td>
                 <td style="text-align: right;">x</td>
-                <td style="border-bottom: solid black 2px;"><?php echo $this->Number->currency( $costo ); ?></td>
+                <td style="border-bottom: solid black 2px;"><?php echo $this->Number->currency( $costo, '$ ', array( 'fractionSymbol' => '$ 0,', 
+                                                                                                                     'fractionPosition' => 'before',
+                                                                                                                     'fractionExponent' => 2, 
+                                                                                                                     'places' => 2, 
+                                                                                                                     'decimals' => ',', 
+                                                                                                                     'thousands' => '.' ) ); ?></td>
             </tr>            
             <tr>
                 <td>Costo total:</td>
                 <td>&nbsp;</td>
-                <td><?php echo $this->Number->currency( $costo * ( $enviados + $recibidos ) ); ?></td>
+                <td><?php echo $this->Number->currency( $costo * ( $enviados + $recibidos ), '$ ', array( 'fractionSymbol' => '$ 0,', 
+                                                                                                                     'fractionPosition' => 'before',
+                                                                                                                     'fractionExponent' => 2, 
+                                                                                                                     'places' => 2, 
+                                                                                                                     'decimals' => ',', 
+                                                                                                                     'thousands' => '.' ) ); ?></td>
             </tr>            
         </tbody>
     </table>

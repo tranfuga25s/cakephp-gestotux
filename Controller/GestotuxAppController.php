@@ -5,6 +5,12 @@ class GestotuxAppController extends AppController {
 
 	public function necesitaConexion() {
 		ConnectionManager::create( 'gestotux',
+            array(
+                'datasource' => 'Database/Sqlite',
+                'persistent' => false,
+                'database' => '/home/ezeller/Programacion/trsis/app/trsisgestotux.sqlite',
+                'encoding' => 'utf8'
+            )	/*	
 		 array(
 		     'datasource' => 'Database/Mysql',
 		     'persistent' => false,
@@ -14,7 +20,7 @@ class GestotuxAppController extends AppController {
 		     'database' => 'trsis-gestotux',
 		     'prefix' => '',
 		     'encoding' => 'utf8'
-		    )
+		    )*/
 		);
 	}
 }
