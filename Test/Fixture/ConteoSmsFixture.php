@@ -83,7 +83,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         );
         $f = new DateTime();
         $f->sub( new DateInterval( "P1M" ) );
-        // Registro de hace un dia
+        // Registro de hace un mes atras
         $this->records[] = array(
             'id_conteo_sms' => 5,
             'cliente_id' => 5,

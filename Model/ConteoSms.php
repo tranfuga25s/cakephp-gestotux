@@ -69,17 +69,17 @@ class ConteoSms extends GestotuxAppModel {
         $condicion_fecha = array( '`ConteoSms`.`fecha`' => date('Y-m-d') );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
-                $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
+                $condicion_fecha = array( 'DATE( `ConteoSms`.`fecha` ) BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
             } else {
-                $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
+                $condicion_fecha = array( 'DATE( `ConteoSms`.`fecha` )' => $fecha );
             }
         }
 
         $data = $this->find( 'first', array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
-                                            'fields' => array( 'envios' ),
+                                            'fields' => array( 'SUM( envios )' ),
                                             'recursive' => -1 ) );
-        if( array_key_exists( 'ConteoSms', $data ) ) {
-            return $data['ConteoSms']['envios'];
+        if( count( $data ) > 0 ) {
+            return intval( $data[0]['SUM( envios )'] );
         }
         return 0;
     }
@@ -92,17 +92,17 @@ class ConteoSms extends GestotuxAppModel {
         $condicion_fecha = array( "`ConteoSms`.`fecha`" => date( 'Y-m-d' ) );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
-                $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
+                $condicion_fecha = array( 'DATE( `ConteoSms`.`fecha` ) BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
             } else {
-                $condicion_fecha = array( 'fecha' => $fecha );
+                $condicion_fecha = array( 'DATE( `ConteoSms`.`fecha` ) ' => $fecha );
             }
         }
 
         $data = $this->find( 'first', array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
-                                            'fields' => array( 'recibidos' ),
+                                            'fields' => array( 'SUM( recibidos )' ),
                                             'recursive' => -1 ) );
-        if( array_key_exists( 'ConteoSms', $data ) ) {
-            return $data['ConteoSms']['recibidos'];
+        if( count( $data ) > 0 ) {
+            return intval( $data[0]['SUM( recibidos )'] );
         }
         return 0;
     }
@@ -157,7 +157,7 @@ class ConteoSms extends GestotuxAppModel {
         }
         return false;
     }
-    
+
     public function costoMensaje( $fecha = null ) {
         if( is_null( $this->_id_cliente ) ) {
             return 0.0;
@@ -180,7 +180,7 @@ class ConteoSms extends GestotuxAppModel {
         }
         return 0.0;
     }
-    
+
     public function buscarConteoMes( $mes = null ) {
         if( is_null( $mes ) || $mes <= 0 ) {
             return 0;
@@ -192,8 +192,8 @@ class ConteoSms extends GestotuxAppModel {
         $rango = array( 'inicio' => $finicio->format( 'Y-m-d' ), 'fin' => $ffin->format( 'Y-m-d' ) );
         return $this->cantidadEnviada( $rango ) + $this->cantidadRecibida( $rango );
     }
-    
-    public function buscarPrecioSms( $mes ) {
+
+    public function buscarPrecioSms( $mes = null ) {
         if( is_null( $mes ) || $mes <= 0 ) {
             return 0.0;
         }
@@ -206,16 +206,16 @@ class ConteoSms extends GestotuxAppModel {
                                      'fields' => array( 'MAX( costo )' ),
                                      'recursive' => -1
                                     )
-        ); 
+        );
         if( count( $datos ) > 0 ) {
             if( array_key_exists( 'ConteoSms', $datos ) ) {
                 return $datos['ConteoSms']['MAX( costo )'];
             }
         }
         return 0.0;
-                                     
+
     }
-    
+
     /*!
      * Devuelve el listado de cantidad de mensajes enviados
      * cada dia durante el mes indicado para el cliente indicado
