@@ -31,7 +31,7 @@ class ConteoSmsFixture extends CakeTestFixture {
      */
 	public $records = array(
 		array(
-		    'id_conteo_sms' => 1,
+		    'id_conteo_sms' => 1111,
 			'cliente_id' => 5,
 			'fecha' => '2013-08-02',
 			'envios' => 1,
@@ -44,7 +44,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         $f = new DateTime();
         // Registro en el día de hoy
         $this->records[] = array(
-            'id_conteo_sms' => 2,
+            'id_conteo_sms' => 1,
             'cliente_id' => 5,
             'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
@@ -64,7 +64,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         $f->sub( new DateInterval( "P2D" ) );
         // Registro de hace tres dias atras
         $this->records[] = array(
-            'id_conteo_sms' => 2,
+            'id_conteo_sms' => 3,
             'cliente_id' => 5,
             'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
@@ -74,7 +74,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         $f->sub( new DateInterval( "P7D" ) );
         // Registro de hace mas de una semana
         $this->records[] = array(
-            'id_conteo_sms' => 2,
+            'id_conteo_sms' => 4,
             'cliente_id' => 5,
             'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
@@ -85,7 +85,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         $f->sub( new DateInterval( "P1M" ) );
         // Registro de hace un dia
         $this->records[] = array(
-            'id_conteo_sms' => 2,
+            'id_conteo_sms' => 5,
             'cliente_id' => 5,
             'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
@@ -95,7 +95,7 @@ class ConteoSmsFixture extends CakeTestFixture {
         $f->sub( new DateInterval( "P5D" ) );
         // Registro de hace más de un mes atras
         $this->records[] = array(
-            'id_conteo_sms' => 2,
+            'id_conteo_sms' => 6,
             'cliente_id' => 5,
             'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
