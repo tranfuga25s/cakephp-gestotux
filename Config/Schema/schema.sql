@@ -1,3 +1,4 @@
+USE turnera;
 CREATE TABLE IF NOT EXISTS `estado_fiscal` ( `id_estado_fiscal` int(11) NOT NULL AUTO_INCREMENT, `titulo` tinytext COLLATE utf8_spanish_ci NOT NULL, PRIMARY KEY (`id_estado_fiscal`) ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 CREATE TABLE IF NOT EXISTS `paises` ( `id_pais` bigint(20) NOT NULL AUTO_INCREMENT, `nombre` tinytext COLLATE utf8_spanish_ci NOT NULL, `predeterminado` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id_pais`), UNIQUE KEY `nombre_unico` (`nombre`(50)) ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 CREATE TABLE IF NOT EXISTS `provincias` ( `id_provincia` bigint(20) NOT NULL AUTO_INCREMENT, `nombre` tinytext COLLATE utf8_spanish_ci NOT NULL, `predeterminado` tinyint(1) NOT NULL DEFAULT '0', `id_pais` bigint(20) NOT NULL, PRIMARY KEY (`id_provincia`) ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
