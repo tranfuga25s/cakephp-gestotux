@@ -1,9 +1,12 @@
 cakephp-gestotux
 ================
 
+[![Build Status](https://travis-ci.org/tranfuga25s/cakephp-gestotux.png?branch=master)](https://travis-ci.org/tranfuga25s/cakephp-gestotux)
+
 Plugin de integración entre el programa gestotux y el Framework CakePHP
 
 Gestotux: http://gestotux.googlecode.com/
+
 
 Documentación
 =============

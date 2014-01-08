@@ -93,4 +93,5 @@ class ConteoSmsTest extends CakeTestCase {
         $this->assertLessThanOrEqual( 0.0, $this->ConteoSms->buscarPrecioSms( date( 'n' )-2 ), "No corresponde el precio respecto al 2 meses antes" );
     }
 
+
 }
