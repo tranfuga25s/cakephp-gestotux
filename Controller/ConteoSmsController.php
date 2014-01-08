@@ -12,14 +12,14 @@ class ConteoSmsController extends GestotuxAppController {
      * @var ConteoSms ConteoSms
      */
 	public $uses = array( 'Gestotux.ConteoSms' );
-    
+
     public function beforeFilter() {
         $this->necesitaConexion();
         $id_cliente = intval( Configure::read( 'Gestotux.cliente' ) );
         $this->ConteoSms->setearCliente( $id_cliente );
         parent::beforeFilter();
     }
-    
+
     public function isAuthorized( $usuario = null ) {
         switch( $usuario['grupo_id'] ) {
             case 1: // Administradores
@@ -53,13 +53,13 @@ class ConteoSmsController extends GestotuxAppController {
         }
         return false;
     }
-    
+
     public function index() {
         $this->set( 'enviados', $this->ConteoSms->cantidadEnviada() );
         $this->set( 'recibidos', $this->ConteoSms->cantidadRecibida() );
         $this->set( 'costo', $this->ConteoSms->costoMensaje() );
     }
-    
+
     public function administracion_index() {
         if( $this->request->is('requested') ) {
             return array(

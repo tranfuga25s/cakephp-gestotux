@@ -14,7 +14,7 @@ class ConteoSms extends GestotuxAppModel {
 	public $primaryKey = 'id_conteo_sms';
 
 
-    public $useDbConfig = 'gestotux';
+    public $useDbConfig = 'default';
     /**
      * Validation rules
      *

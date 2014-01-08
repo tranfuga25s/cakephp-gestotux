@@ -8,9 +8,9 @@ class GestotuxAppController extends AppController {
             array(
                 'datasource' => 'Database/Sqlite',
                 'persistent' => false,
-                'database' => '/home/ezeller/Programacion/trsis/app/trsisgestotux.sqlite',
+                'database' => ROOT.DS.'/app/trsisgestotux.sqlite',
                 'encoding' => 'utf8'
-            )	/*	
+            )	/*
 		 array(
 		     'datasource' => 'Database/Mysql',
 		     'persistent' => false,
