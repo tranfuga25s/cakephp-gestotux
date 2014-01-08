@@ -41,13 +41,66 @@ class ConteoSmsFixture extends CakeTestFixture {
 	);
 
     public function init() {
+        $f = new DateTime();
+        // Registro en el día de hoy
         $this->records[] = array(
             'id_conteo_sms' => 2,
             'cliente_id' => 5,
-            'fecha' => date( 'Y-m-d' ),
+            'fecha' => $f->format( 'Y-m-d' ),
             'envios' => 1,
             'recibidos' => 1,
             'costo' => 1
+        );
+        $f->sub( new DateInterval( "P1D" ) );
+        // Registro de hace un dia
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => $f->format( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 1.1
+        );
+        $f->sub( new DateInterval( "P2D" ) );
+        // Registro de hace tres dias atras
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => $f->format( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 1.1
+        );
+        $f->sub( new DateInterval( "P7D" ) );
+        // Registro de hace mas de una semana
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => $f->format( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 1.4
+        );
+        $f = new DateTime();
+        $f->sub( new DateInterval( "P1M" ) );
+        // Registro de hace un dia
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => $f->format( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 1.1
+        );
+        $f->sub( new DateInterval( "P5D" ) );
+        // Registro de hace más de un mes atras
+        $this->records[] = array(
+            'id_conteo_sms' => 2,
+            'cliente_id' => 5,
+            'fecha' => $f->format( 'Y-m-d' ),
+            'envios' => 1,
+            'recibidos' => 1,
+            'costo' => 10.1
         );
         parent::init();
     }

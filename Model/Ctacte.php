@@ -54,5 +54,24 @@ class Ctacte extends GestotuxAppModel {
           return $result['Ctacte']['saldo'];
         }
 	}
+    
+    /**
+     * Funcion para obtener el identificador de cuenta corriente según el id de cliente
+     * @param id_cliente integer Identificador del cliente.
+     * @return false si no existe asociación o el identificador de la cuenta corriente ( string )
+     */
+     public function obtenerCtaCte( $id_cliente = null ) {
+        if( $id_cliente == null ) {
+            //throw new NotFoundException( 'El cliente es nulo' );
+            return false;
+        }
+        
+        $result = $this->find( 'first', array( 'conditions' => array( 'id_cliente' => $id_cliente ), 'fields' => $this->primaryKey, 'recursive' => -1 ) );
+        if( $result == array() ) {
+            return false;
+        } else {
+            return $result[$this->name][$this->primaryKey];
+        }
+     }
 
 }

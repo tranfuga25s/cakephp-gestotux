@@ -73,5 +73,22 @@ class ConteoSmsTest extends CakeTestCase {
         $this->assertEqual( $this->ConteoSms->agregarRecibido( date( 'Y-m-d' ), 2 ), true, "La llamada con fecha debería de devolver verdadero" );
         $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 5, "La cantidad Recibida debería ser 4" );
     }
+    
+    public function testConteoSmsPorMes() {
+        // Debe devolver el conteo maximo de mesnajes salientes y entrantes
+        $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 1, "No corresponde la cantidad recibida para el día de hoy" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes( date( 'j' ) ), 10, "No corresponde la cantidad contabilizada del mes" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes( 0 ), 0, "No corresponde la cantida devuelta cuando el mes es incorrecto" );
+        $this->assertEqual( $this->ConteoSms->buscarConteoMes(), 0, "No corresponde la cantida devuelta cuando el mes es nulo" );
+    }
+    
+    public function testPrecioSmsPorMes() {
+        // Debe devolver el maximo precio de todo el mes
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( 0 ), 0.0, "No corresponde la cantida devuelta cuando el mes es incorrecto" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms(), 0.0, "No corresponde la cantida devuelta cuando el mes es nulo" );
+        $this->assertEqual( $this->conteoSms->buscarPrecioSms( date( 'j' ) ), 1.4, "No corresponde el precio pasado en este mes" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( date( 'j' )-1 ), 10.1, "No corresponde el precio respecto al mes anterior" );
+        $this->assertEqual( $this->ConteoSms->buscarPrecioSms( date( 'j' )-2 ), 0.0, "No corresponde el precio respecto al 2 meses antes" );
+    }
 
 }

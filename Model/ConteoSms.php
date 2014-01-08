@@ -14,7 +14,7 @@ class ConteoSms extends GestotuxAppModel {
 	public $primaryKey = 'id_conteo_sms';
 
 
-    public $useDbConfig = 'default';
+    public $useDbConfig = 'gestotux';
     /**
      * Validation rules
      *
@@ -66,7 +66,7 @@ class ConteoSms extends GestotuxAppModel {
             return 0;
         }
 
-        $condicion_fecha = array( '`ConteoSms`.`fecha` = DATE( NOW() )' );
+        $condicion_fecha = array( '`ConteoSms`.`fecha`' => date('Y-m-d') );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
                 $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
@@ -89,7 +89,7 @@ class ConteoSms extends GestotuxAppModel {
             return 0;
         }
 
-        $condicion_fecha = 'fecha = DATE( NOW() )';
+        $condicion_fecha = array( "`ConteoSms`.`fecha`" => date( 'Y-m-d' ) );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
                 $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
@@ -112,7 +112,7 @@ class ConteoSms extends GestotuxAppModel {
             return false;
         }
 
-        $condicion_fecha = '`ConteoSms`.`fecha` = DATE( NOW() )';
+        $condicion_fecha = array( '`ConteoSms`.`fecha`' => date( 'Y-m-d' )  );
         if( $fecha != null ) {
             $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
         }
@@ -137,7 +137,7 @@ class ConteoSms extends GestotuxAppModel {
             return false;
         }
 
-        $condicion_fecha = '`ConteoSms`.`fecha` = DATE( NOW() )';
+        $condicion_fecha = array( '`ConteoSms`.`fecha`' =>  date( 'Y-m-d' ) );
         if( $fecha != null ) {
             $condicion_fecha = array( '`ConteoSms`.`fecha`' => $fecha );
         }
@@ -163,7 +163,7 @@ class ConteoSms extends GestotuxAppModel {
             return 0.0;
         }
 
-        $condicion_fecha = 'fecha = DATE( NOW() )';
+        $condicion_fecha = array( '`ConteoSms`.`fecha`'  => date( 'Y-m-d' ) );
         if( !is_null( $fecha ) ) {
             if( is_array( $fecha ) ) {
                 $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $fecha['inicio'], $fecha['fin'] ) );
@@ -179,5 +179,48 @@ class ConteoSms extends GestotuxAppModel {
             return $data['ConteoSms']['costo'];
         }
         return 0.0;
+    }
+    
+    public function buscarConteoMes( $mes = null ) {
+        if( is_null( $mes ) || $mes <= 0 ) {
+            return 0;
+        }
+        $finicio = new DateTime();
+        $finicio->setDate( date( 'Y' ), $mes, 1 );
+        $ffin = clone $finicio;
+        $ffin->add( New DateInterval( "P1M" ) );
+        $rango = array( 'inicio' => $finicio->format( 'Y-m-d' ), 'fin' => $ffin->format( 'Y-m-d' ) );
+        return $this->cantidadEnviada( $rango ) + $this->cantidadRecibida( $rango );
+    }
+    
+    public function buscarPrecioSms( $mes ) {
+        if( is_null( $mes ) || $mes <= 0 ) {
+            return 0.0;
+        }
+        $finicio = new DateTime();
+        $finicio->setDate( date( 'Y' ), $mes, 1 );
+        $ffin = clone $finicio;
+        $ffin->add( New DateInterval( "P1M" ) );
+        $condicion_fecha = array( '`ConteoSms`.`fecha` BETWEEN ? AND ? ' => array( $finicio->format( 'Y-m-d H:i:s' ), $ffin->format( 'Y-m-d h:i:s') ) );
+        $datos = $this->find( 'first', array( 'conditions' => array( 'cliente_id' => $this->_id_cliente, $condicion_fecha ),
+                                     'fields' => array( 'MAX( costo )' ),
+                                     'recursive' => -1
+                                    )
+        ); 
+        if( count( $datos ) > 0 ) {
+            if( array_key_exists( 'ConteoSms', $datos ) ) {
+                return $datos['ConteoSms']['MAX( costo )'];
+            }
+        }
+        return 0.0;
+                                     
+    }
+    
+    /*!
+     * Devuelve el listado de cantidad de mensajes enviados
+     * cada dia durante el mes indicado para el cliente indicado
+     */
+    public function obtenerListado( $id_cliente, $mes ) {
+        /// @TODO: Hacer listado para el email
     }
 }
