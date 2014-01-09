@@ -8,17 +8,6 @@ App::uses('Servicio', 'Gestotux.Model');
 class ServicioTest extends CakeTestCase {
 
 /**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'plugin.gestotux.servicio',
-		'plugin.gestotux.cliente',
-		'plugin.gestotux.servicios_cliente'
-	);
-
-/**
  * setUp method
  *
  * @return void
@@ -27,6 +16,10 @@ class ServicioTest extends CakeTestCase {
 		parent::setUp();
 		$this->Servicio = ClassRegistry::init('Gestotux.Servicio');
 	}
+
+    public function testBasico() {
+        $this->assertEqual( true, true );
+    }
 
 /**
  * tearDown method

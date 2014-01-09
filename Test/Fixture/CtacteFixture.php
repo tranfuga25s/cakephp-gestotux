@@ -3,10 +3,10 @@
  * ServicioFixture
  *
  */
-class ServicioFixture extends CakeTestFixture {
+class CtacteFixture extends CakeTestFixture {
 
     public $fields = array(
-          'id_servicio' => array('type' => 'integer', 'key' => 'primary'),
+          'numero_cuenta' => array('type' => 'integer', 'key' => 'primary'),
           'nombre' => array( 'type' => 'string', 'length' => 255, 'null' => false ),
           'descripcion' => array( 'type' => 'string', 'length' => 255, 'null' => false ),
           'fecha_alta' => 'datetime',
@@ -19,7 +19,7 @@ class ServicioFixture extends CakeTestFixture {
 
       public $records = array(
           array(
-              'id_servicio' => 1,
+              'numero_cuenta' => 1,
               'nombre' => 'prueba',
               'descripcion' => 'prueba',
               'fecha_alta' => '2014-01-01',

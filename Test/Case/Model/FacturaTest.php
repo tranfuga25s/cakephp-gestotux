@@ -8,16 +8,6 @@ App::uses('Factura', 'Gestotux.Model');
 class FacturaTest extends CakeTestCase {
 
 /**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'plugin.gestotux.factura',
-		'plugin.gestotux.item_factura'
-	);
-
-/**
  * setUp method
  *
  * @return void
@@ -26,6 +16,11 @@ class FacturaTest extends CakeTestCase {
 		parent::setUp();
 		$this->Factura = ClassRegistry::init('Gestotux.Factura');
 	}
+
+
+    public function testBasico() {
+        $this->assertEqual( true, true );
+    }
 
 /**
  * tearDown method
