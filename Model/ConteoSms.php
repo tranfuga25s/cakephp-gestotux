@@ -63,6 +63,7 @@ class ConteoSms extends GestotuxAppModel {
 
     public function cantidadEnviada( $fecha = null ) {
         if( is_null( $this->_id_cliente ) ) {
+            debug( "Numero de cliente no seteado" );
             return 0;
         }
 
@@ -86,6 +87,7 @@ class ConteoSms extends GestotuxAppModel {
 
     public function cantidadRecibida( $fecha = null ) {
         if( is_null( $this->_id_cliente ) ) {
+            debug( "Numero de cliente no seteado" );
             return 0;
         }
 
@@ -120,13 +122,33 @@ class ConteoSms extends GestotuxAppModel {
         $datos = $this->find( 'first',
             array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
                    'fields'     => array( 'id_conteo_sms', 'envios' ) ) );
-        $cantidad_anterior = intval( $datos['ConteoSms']['envios'] );
-        $this->id = $datos['ConteoSms']['id_conteo_sms'];
-        unset( $datos );
-        if( $this->exists() ) {
-            $nueva_cantidad = $cantidad_anterior + $cantidad;
-            if( $this->saveField( 'envios', $nueva_cantidad ) ) {
+        if( count( $datos ) == 0 ) {
+            $this->create();
+            $datos = array(
+                'ConteoSms' => array(
+                    'cliente_id' => $this->_id_cliente,
+                    'envios' => 1,
+                    'recibidos' => 0,
+                    'costo' => doubleval( Configure::read( 'Gestotux.precio_sms' ) ),
+                    'fecha' => date('Y-m-d')
+                )
+            );
+            if( $this->save( $datos ) ) {
                 return true;
+            } else {
+                debug( "No se pudo guardar el dato nuevo!" );
+                debug( $this->validationErrors );
+                die();
+            }
+        } else {
+            $cantidad_anterior = intval( $datos['ConteoSms']['envios'] );
+            $this->id = $datos['ConteoSms']['id_conteo_sms'];
+            unset( $datos );
+            if( $this->exists() ) {
+                $nueva_cantidad = $cantidad_anterior + $cantidad;
+                if( $this->saveField( 'envios', $nueva_cantidad ) ) {
+                    return true;
+                }
             }
         }
         return false;
@@ -145,14 +167,33 @@ class ConteoSms extends GestotuxAppModel {
         $datos = $this->find( 'first',
             array( 'conditions' => array( '`ConteoSms`.`cliente_id`' => $this->_id_cliente, $condicion_fecha ),
                    'fields'     => array( 'id_conteo_sms', 'recibidos' ) ) );
-
-        $cantidad_anterior = intval( $datos['ConteoSms']['recibidos'] );
-        $this->id = $datos['ConteoSms']['id_conteo_sms'];
-        unset( $datos );
-        if( $this->exists() ) {
-            $nueva_cantidad = $cantidad_anterior + $cantidad;
-            if( $this->saveField( 'recibidos', $nueva_cantidad ) ) {
+        if( count( $datos ) == 0 ) {
+            $this->create();
+            $datos = array(
+                'ConteoSms' => array(
+                    'cliente_id' => $this->_id_cliente,
+                    'envios' => 0,
+                    'recibidos' => 1,
+                    'costo' => doubleval( Configure::read( 'Gestotux.precio_sms' ) ),
+                    'fecha' => date('Y-m-d')
+                )
+            );
+            if( $this->save( $datos ) ) {
                 return true;
+            } else {
+                debug( "No se pudo guardar el dato nuevo!" );
+                debug( $this->validationErrors );
+                die();
+            }
+        } else {
+            $cantidad_anterior = intval( $datos['ConteoSms']['recibidos'] );
+            $this->id = $datos['ConteoSms']['id_conteo_sms'];
+            unset( $datos );
+            if( $this->exists() ) {
+                $nueva_cantidad = $cantidad_anterior + $cantidad;
+                if( $this->saveField( 'recibidos', $nueva_cantidad ) ) {
+                    return true;
+                }
             }
         }
         return false;
