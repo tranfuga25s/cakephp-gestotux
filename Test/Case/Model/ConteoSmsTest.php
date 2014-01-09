@@ -94,15 +94,15 @@ class ConteoSmsTest extends CakeTestCase {
     }
 
     public function testSinDatosEnviados() {
-        $this->assertEqual( $this->ConteoSms->deleteAll(), true, "No se pudo eliminar los datos" );
+        $this->assertEqual( $this->ConteoSms->deleteAll('1=1'), true, "No se pudo eliminar los datos" );
         $this->assertEqual( $this->ConteoSms->cantidadEnviada(), 0, "No corresponde la cantidad enviada" );
         $this->assertEqual( $this->ConteoSms->agregarEnviado(), true, "La llamada debería de sumar uno en la fecha de hoy" );
         $this->assertEqual( $this->ConteoSms->cantidadEnviada(), 1, "No corresponde la cantidad enviada" );
     }
 
-    public function testSinDatosEnviados() {
-        $this->assertEqual( $this->ConteoSms->deleteAll(), true, "No se pudo eliminar los datos" );
-        $this->assertEqual( $this->ConteoSms->cantidadRecibidaa(), 0, "No corresponde la cantidad enviada" );
+    public function testSinDatosRecibidos() {
+        $this->assertEqual( $this->ConteoSms->deleteAll( '1=1' ), true, "No se pudo eliminar los datos" );
+        $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 0, "No corresponde la cantidad enviada" );
         $this->assertEqual( $this->ConteoSms->agregarRecibido(), true, "La llamada debería de sumar uno en la fecha de hoy" );
         $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 1, "No corresponde la cantidad enviada" );
     }
