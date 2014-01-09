@@ -93,5 +93,20 @@ class ConteoSmsTest extends CakeTestCase {
         $this->assertLessThanOrEqual( 0.0, $this->ConteoSms->buscarPrecioSms( date( 'n' )-2 ), "No corresponde el precio respecto al 2 meses antes" );
     }
 
+    public function testSinDatosEnviados() {
+        $this->assertEqual( $this->ConteoSms->deleteAll(), true, "No se pudo eliminar los datos" );
+        $this->assertEqual( $this->ConteoSms->cantidadEnviada(), 0, "No corresponde la cantidad enviada" );
+        $this->assertEqual( $this->ConteoSms->agregarEnviado(), true, "La llamada debería de sumar uno en la fecha de hoy" );
+        $this->assertEqual( $this->ConteoSms->cantidadEnviada(), 1, "No corresponde la cantidad enviada" );
+    }
+
+    public function testSinDatosEnviados() {
+        $this->assertEqual( $this->ConteoSms->deleteAll(), true, "No se pudo eliminar los datos" );
+        $this->assertEqual( $this->ConteoSms->cantidadRecibidaa(), 0, "No corresponde la cantidad enviada" );
+        $this->assertEqual( $this->ConteoSms->agregarRecibido(), true, "La llamada debería de sumar uno en la fecha de hoy" );
+        $this->assertEqual( $this->ConteoSms->cantidadRecibida(), 1, "No corresponde la cantidad enviada" );
+    }
+
+
 
 }
